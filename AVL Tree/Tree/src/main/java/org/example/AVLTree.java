@@ -199,6 +199,12 @@ public class AVLTree
             bf of node(60) = 1 - 1 = 0
 
             now the binary search tree becomes balanced.
+
+            now we must handle the heights of the x and lc node since we changed their positions.
+            nodeToBeBalanced.setHeight(calcAndRetHeight(nodeToBeBalanced));
+            leftChildOfImbalancedNode.setHeight(calcAndRetHeight(leftChildOfImbalancedNode));
+
+            finally return lc node.
         * */
 
         TreeNode leftChildOfImbalancedNode = nodeToBeBalanced.getLeft();
