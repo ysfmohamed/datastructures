@@ -143,7 +143,7 @@ public class AVLTree
                    55   58
                  50
 
-            Let's calculate balance factor of every node after inserting(58):
+            Let's calculate balance factor of every node after inserting(50):
             bf of node(50) = 0 - 0 = 0
             bf of node(70) = 0 - 0 = 0
             bf of node(58) = 0 - 0 = 0
