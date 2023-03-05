@@ -23,6 +23,57 @@ public class AVLTree
         return curr;
     }
 
+    public int findMin() {
+        TreeNode curr = root;
+        TreeNode prev = null;
+
+        while(curr != null) {
+            prev = curr;
+            curr = curr.getLeft();
+        }
+
+        return prev.getKey();
+    }
+
+    public int findMax() {
+        TreeNode curr = root;
+        TreeNode prev = null;
+
+        while(curr != null) {
+            prev = curr;
+            curr = curr.getRight();
+        }
+
+        return prev.getKey();
+    }
+
+    public void inOrder(TreeNode root) {
+        if(root == null)
+            return;
+
+        inOrder(root.getLeft());
+        System.out.print(root.getKey() + " ");
+        inOrder(root.getRight());
+    }
+
+    public void preOrder(TreeNode root) {
+        if(root == null)
+            return;
+
+        System.out.print(root.getKey() + " ");
+        inOrder(root.getLeft());
+        inOrder(root.getRight());
+    }
+
+    public void postOrder(TreeNode root) {
+        if(root == null)
+            return;
+
+        inOrder(root.getLeft());
+        inOrder(root.getRight());
+        System.out.print(root.getKey() + " ");
+    }
+
     public void insert(int key) {
         root = insert(root, key);
     }
