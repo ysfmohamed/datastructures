@@ -292,6 +292,74 @@ public class AVLTree
         return rightChildOfImbalancedNode;
     }
 
+    public void delete(int key) {
+        root = delete(root, key);
+    }
+
+    private TreeNode delete(TreeNode root, int key) {
+        // We didn't find the node with the given key
+        if(root == null)
+            return null;
+
+        // We found the node with the given key
+        if(root.getKey() == key) {
+            // leaf node
+            if(root.getLeft() == null && root.getRight() == null) {
+                root = null;
+            }
+            // has only one child on the left
+            else if(root.getLeft() != null && root.getRight() == null) {
+                TreeNode temp = root;
+                temp.getLeft().setParent(root.getParent());
+                root = temp.getLeft();
+                temp = null;
+            }
+            // has only one child on right
+            else if(root.getLeft() == null && root.getRight() != null) {
+                TreeNode temp = root;
+                temp.getRight().setParent(root.getParent());
+                root = temp.getRight();
+                temp = null;
+            }
+            // has two children
+            else {
+                int successor = getSuccessor(key);
+                root.setKey(successor);
+                root.setRight(delete(root.getRight(), successor));
+            }
+        }
+        else if(root.getKey() > key) {
+            root.setLeft(delete(root.getLeft(), key));
+        }
+        else {
+            root.setRight(delete(root.getRight(), key));
+        }
+
+        if(root != null) {
+            root = performBalance(root);
+            root.setHeight(calcAndRetHeight(root));
+        }
+
+        return root;
+    }
+
+    public int getSuccessor(int key) {
+        TreeNode node = find(key);
+        return node == null ? -1 : getSuccessor(node);
+    }
+
+    private int getSuccessor(TreeNode node) {
+        TreeNode curr = node.getRight();
+        TreeNode prev = null;
+
+        while(curr != null) {
+            prev = curr;
+            curr = curr.getLeft();
+        }
+
+        return prev.getKey();
+    }
+
     private int calcAndRetHeight(TreeNode node) {
         int left = height(node.getLeft());
         int right = height(node.getRight());
