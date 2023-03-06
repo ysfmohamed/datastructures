@@ -401,10 +401,6 @@ public class AVLTree
         return height(root.getLeft()) - height(root.getRight());
     }
 
-    public TreeNode getRoot() {
-        return this.root;
-    }
-
     public int getSize() {
         return this.size;
     }
