@@ -311,6 +311,13 @@ public class AVLTree
     }
 
     public void delete(int key) {
+        TreeNode isNodeToBeDeletedExist = find(key);
+
+        if(isNodeToBeDeletedExist == null) {
+            System.out.println(key + " is not in the tree.");
+            return;
+        }
+
         root = delete(root, key);
     }
 
