@@ -47,7 +47,19 @@ public class AVLTree
         return prev.getKey();
     }
 
-    public void inOrder(TreeNode root) {
+    public void inOrder() {
+        inOrder(root);
+    }
+
+    public void preOrder() {
+        preOrder(root);
+    }
+
+    public void postOrder() {
+        postOrder(root);
+    }
+    
+    private void inOrder(TreeNode root) {
         if(root == null)
             return;
 
@@ -56,7 +68,7 @@ public class AVLTree
         inOrder(root.getRight());
     }
 
-    public void preOrder(TreeNode root) {
+    private void preOrder(TreeNode root) {
         if(root == null)
             return;
 
@@ -65,7 +77,7 @@ public class AVLTree
         inOrder(root.getRight());
     }
 
-    public void postOrder(TreeNode root) {
+    private void postOrder(TreeNode root) {
         if(root == null)
             return;
 
