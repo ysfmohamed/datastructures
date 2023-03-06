@@ -13,7 +13,7 @@ public class AVLTree
     public TreeNode find(int key) {
         TreeNode curr = root;
 
-        while(curr.getKey() != key) {
+        while(curr != null && curr.getKey() != key) {
             if(key > curr.getKey())
                 curr = curr.getRight();
             else
@@ -93,7 +93,6 @@ public class AVLTree
         }
         else {
             root = insert(root, key);
-            size++;
         }
     }
 
