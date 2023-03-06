@@ -58,7 +58,7 @@ public class AVLTree
     public void postOrder() {
         postOrder(root);
     }
-    
+
     private void inOrder(TreeNode root) {
         if(root == null)
             return;
@@ -87,7 +87,14 @@ public class AVLTree
     }
 
     public void insert(int key) {
-        root = insert(root, key);
+        TreeNode isAlreadyExist = find(key);
+        if(isAlreadyExist != null) {
+            System.out.println("There is already " + key + " in the tree.");
+        }
+        else {
+            root = insert(root, key);
+            size++;
+        }
     }
 
     private TreeNode insert(TreeNode root, int key) {
