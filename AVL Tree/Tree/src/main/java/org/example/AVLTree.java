@@ -93,6 +93,7 @@ public class AVLTree
         }
         else {
             root = insert(root, key);
+            size++;
         }
     }
 
@@ -319,6 +320,7 @@ public class AVLTree
         }
 
         root = delete(root, key);
+        size--;
     }
 
     private TreeNode delete(TreeNode root, int key) {
