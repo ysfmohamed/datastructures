@@ -202,16 +202,21 @@ public class AVLTree
         /*
             Let's take an example, assume that we have a balanced binary search tree like that:
                         60
+                       /  \
                      57    70
-                   55   58
+                    /  \
+                  55    58
 
             and we want to insert(50).
 
             the balanced binary search tree becomes unbalanced as follows:
                         60
+                       /  \
                      57    70
-                   55   58
-                 50
+                    /  \
+                  55    58
+                 /
+               50
 
             Let's calculate balance factor of every node after inserting(50):
             bf of node(50) = 0 - 0 = 0
@@ -239,9 +244,9 @@ public class AVLTree
                    leftChildOfImbalancedNode.setParent(nodeToBeBalanced.getParent());
                    nodeToBeBalanced.setParent(leftChildOfImbalancedNode);
 
-                   in the parents context, lc becomes the father of x and x becomes the child of lc.
+                   in the parents' context, lc becomes the father of x and x becomes the child of lc.
 
-                3- now our lc node has two children one on the left and the other on the right, and we must handle that right child,
+                4- now our lc node has two children one on the left and the other on the right, and we must handle that right child,
                    to handle it just unplug it from the lc and plug it into the x as a left child.
                    nodeToBeBalanced.setLeft(leftChildOfImbalancedNode.getRight());
 
@@ -270,7 +275,7 @@ public class AVLTree
 
             now the binary search tree becomes balanced.
 
-            now we must handle the heights of the x and lc node since we changed their positions.
+            since we changed x and lc positions, we must handle their new heights.
             nodeToBeBalanced.setHeight(calcAndRetHeight(nodeToBeBalanced));
             leftChildOfImbalancedNode.setHeight(calcAndRetHeight(leftChildOfImbalancedNode));
 
