@@ -295,6 +295,92 @@ public class AVLTree
     }
 
     private TreeNode rotateLeft(TreeNode nodeToBeBalanced) {
+        // IMPORTANT NOTE: imbalanced node must have right child.
+
+        /*
+            Let's take an example, assume that we have a balanced binary search tree like that:
+                         60
+                        /  \
+                      57    70
+                           /  \
+                         65    75
+
+            Let's first calculate balance factor of every node:
+            bf of node(60) = 1 - 2 = -1
+            bf of node(57) = 0 - 0 = 0
+            bf of node(70) = 1 - 1 = 0
+            bf of node(65) = 0 - 0 = 0
+            bf of node(75) = 0 - 0 = 0
+
+            and we want to insert(80).
+
+            the balanced binary search tree becomes unbalanced as follows:
+                        60
+                       /  \
+                     57    70
+                          /  \
+                        65    75
+                                \
+                                 80
+
+            Let's calculate balance factor of every node after inserting(80):
+            bf of node(60) = 1 - 3 = -2
+            bf of node(57) = 0 - 0 = 0
+            bf of node(70) = 1 - 2 = -1
+            bf of node(65) = 0 - 0 = 0
+            bf of node(75) = 0 - 1 = -1
+
+            so node(60) becomes imbalanced, and we must balance it to convert the unbalanced bst to balanced bst.
+
+            Solution:
+            - since bf of node(60) is -2 (RIGHT HEAVY) and bf of node(70) is -1, so it means that we made a Right-Right imbalance insertion, so
+              we should do Left Rotation.
+
+            Left Rotation:
+               1- pass the imbalanced node to the rotateLeft method, and lets call it "x".
+
+               2- assign right child of x to a temporary variable called "rc".
+                  TreeNode rightChildOfImbalancedNode = nodeToBeBalanced.getRight();
+
+               3- since we are doing left rotation, so we must handle the parents of x and rc.
+                  so we need to assign the parent of x to the parent of rc,
+                  and we need to assign rc to the parent of x.
+                  leftChildOfImbalancedNode.setParent(nodeToBeBalanced.getParent());
+                  nodeToBeBalanced.setParent(leftChildOfImbalancedNode);
+
+                  in the parents' context, rc becomes the father of x and x becomes the child of rc.
+
+               4- now our rc node has two children one on the left and the other on the right, and we must handle that left child,
+                  to handle it just unplug it from the rc, and plug it into x as a right child.
+                  nodeToBeBalanced.setRight(rightChildOfImbalancedNode.getLeft());
+
+                  and its parent becomes x, so we must also handle this case
+                  if(rightChildOfImbalancedNode.getLeft() != null)
+                      rightChildOImbalancedNode.getLeft().setParent(nodeToBeBalanced);
+
+            so the tree becomes:
+                          70
+                         /  \
+                       60    75
+                      /  \     \
+                    57    65    80
+
+             Let's calculate balance factor of every node after balancing:
+             bf of node(70) = 2 - 2 = 0
+             bf of node(60) = 1 - 1 = 0
+             bf of node(75) = 0 - 1 = -1
+             bf of node(57) = 0 - 0 = 0
+             bf of node(65) = 0 - 0 = 0
+             bf of node(80) = 0 - 0 = 0
+
+             now binary search tree becomes balanced.
+
+             since we changed x and rc positions, we must handle their new heights.
+             nodeToBeBalanced.setHeight(calcAndRetHeight(nodeToBeBalanced));
+             rightChildOfImbalancedNode.setHeight(calcAndRetHeight(rightChildOfImbalancedNode));
+
+             finally return rc node.
+        * */
         TreeNode rightChildOfImbalancedNode = nodeToBeBalanced.getRight();
         rightChildOfImbalancedNode.setParent(nodeToBeBalanced.getParent());
         nodeToBeBalanced.setParent(rightChildOfImbalancedNode);
